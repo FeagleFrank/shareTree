@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="../static/app.css">
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/app.js"></script>
+</head>
+<body>
+<div class="menu" oncontextmenu="customContextMenu(event,0,0,2)">
+    {% if nodes_children[0] %}
+    {% for n in nodes_children[0] recursive %}
+    <p style="padding-left:{{ (nodes[n][2]-1)*2 }}0px" oncontextmenu="customContextMenu(event,{{ n }},{{ (nodes[n][3]) }})">{{nodes[n][1]}}</p>
+    {% if nodes_children[n] %}
+    {{ loop(nodes_children[n]) }}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+</div>
+<div class="content">
+content
+</div>
+
+<div id="contextMenu">
+    <div class="contextMenu">增加节点</div>
+    <div class="contextMenu">增加子节点</div>
+</div>
+</body>
+</html>
