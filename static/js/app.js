@@ -79,3 +79,16 @@ var add_article = function(id,name,author){
     })
 }
 
+var getArticleList = function(id){
+    $.get("/articleList",{node_id:id},function(ret){
+        $(".content").html(ret);
+    })
+}
+
+var articleView = function(id){
+    $(".content").html("<iframe frameborder='0' style='width:100%;height:100%' src='/articleView?article_id="+id+"'></iframe>");
+    // $.get("/articleView",{article_id:id},function(ret){
+    //     $(".content").html(ret);
+    // })
+}
+

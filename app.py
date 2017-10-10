@@ -17,8 +17,8 @@ def index():
         nodes[r[0]] = r
         nodes_children[r[3]].append(r[0])
     # print(result[1])
-    print nodes
-    print nodes_children
+    # print nodes
+    # print nodes_children
     return render_template('index.html', nodes=nodes, nodes_children=nodes_children)
 
 
@@ -45,14 +45,34 @@ def del_node():
 
 @app.route('/addArticle', methods=["POST"])
 def add_article():
-    node_id = int(request.form['id'])
+    node_id = request.form['id']
     name = request.form['name']
     author = request.form['author']
     result = Conn.query_one_sql('SELECT COUNT(*) FROM articles WHERE name=%s and node_id=%s', (name, node_id))
-    if not result[0]:
+    if result[0]:
         return '-1'
     Conn.exec_sql('INSERT INTO articles (node_id,name,author,upd_time) values (%s,%s,%s,%s)', (node_id, name, author, datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
     return '0'
+
+
+@app.route('/articleList')
+def article_list():
+    node_id = request.args.get("node_id")
+    articles = Conn.query_sql('SELECT * FROM articles WHERE node_id=%s', node_id)
+    return render_template('articleList.html', articles=articles)
+
+
+@app.route('/articleView')
+def article_view():
+    # article_id = request.args.get("id")
+    # article = Conn.query_one_sql('SELECT * FROM articles WHERE id=%s', article_id)
+    # if not article:
+    #     return ''
+    # file_name = article[0] + '_' + article[3]
+    f = open('articles/1_test1.txt', 'r')
+    content = f.read()
+    print content
+    return render_template('articleView.html', content=content)
 
 
 if __name__ == '__main__':

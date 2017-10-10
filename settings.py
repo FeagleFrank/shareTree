@@ -3,5 +3,5 @@ mysqlConfig = {
     "port": 3306,
     "db": "share_tree",
     "user": "root",
-    "password": "****",
+    "password": "game66",
 }

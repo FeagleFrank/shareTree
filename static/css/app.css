@@ -39,4 +39,5 @@ html,body{
 .content{
     float: left;
     width: calc(100% - 221px);
+    height:100%;
 }
